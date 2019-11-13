@@ -1,5 +1,6 @@
 package com.github.agogs.holidayapi.api.impl;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.agogs.holidayapi.api.APIConsumer;
 import com.github.agogs.holidayapi.model.HolidayAPIResponse;
@@ -57,7 +58,7 @@ public class HolidayAPIConsumer implements APIConsumer {
         log.debug("got json string response : {}", json);
 
         //ObjectMapper to map the json string to a java object
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         HolidayAPIResponse response = mapper.readValue(json, HolidayAPIResponse.class);
 
